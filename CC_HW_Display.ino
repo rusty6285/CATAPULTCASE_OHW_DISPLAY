@@ -163,8 +163,8 @@ void loop() {
         spr.setTextSize(3);
         spr.setTextColor(TFT_YELLOW);
         spr.setTextDatum(MC_DATUM); // Center text horizontally and vertically
-        spr.drawString("CATAPULT CASE", WIDTH / 2, HEIGHT / 2 - 20);
-        spr.drawString("Please start serial service", WIDTH / 2, HEIGHT / 2 + 20);
+        spr.drawString("CATAPULTCASE", WIDTH / 2, HEIGHT / 2 - 20);
+        spr.drawString("START OHM & PYTHON SCRIPT", WIDTH / 2, HEIGHT / 2 + 20);
         amoled.pushColors(0, 0, WIDTH, HEIGHT, (uint16_t *)spr.getPointer());
         delay(100); // Delay for screen refresh
         return; // Exit loop early
