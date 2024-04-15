@@ -6,4 +6,4 @@ CATAPULTCASE_OHW_DISPLAY
 3. Flash the provided ardruno code to the Lilygo T-Display S3 AMOLED
 4. Connect the Lilygo T-Display S3 AMOLED and you should see the splash screen
 5. Start openhardwaremonitor-v0.9.6
-6. Start the python script and the metrics should appear on the screen
+6. Start the python script and the metrics should appear on Lilygo display
