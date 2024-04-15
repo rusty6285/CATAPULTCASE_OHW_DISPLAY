@@ -13,6 +13,7 @@ Setup:
 3. Connect the Lilygo display and you should see the splash screen
    
 ![screenshot](splash.jpg)
+
 5. Start openhardwaremonitor-v0.9.6
 6. Start the python script and the metrics should appear on Lilygo display
 
