@@ -9,7 +9,7 @@ Requirements:
 
 Setup:
 1. Update the python script to use the COM port of your connected Lilygo display (defaults to COM5)
-2. Compile or flash the pre-compiled ardruno code to the Lilygo display
+2. Compile (or use the pre-compiled bin file provided) and flash to the Lilygo display
 3. Connect the Lilygo display and you should see the splash screen
    
 ![screenshot](splash.jpg)
