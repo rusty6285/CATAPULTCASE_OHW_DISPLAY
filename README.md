@@ -1,5 +1,5 @@
-# CC_OHW_MONITOR
-CC_OHWMONITOR
+# CATAPULTCASE_OHW_DISPLAY
+CATAPULTCASE_OHW_DISPLAY
 
 You must be on Windows 11 and have openhardwaremonitor-v0.9.6 running in the background before executing the python script.
 
