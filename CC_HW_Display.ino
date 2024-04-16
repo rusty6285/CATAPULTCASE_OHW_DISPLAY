@@ -14,7 +14,7 @@ LilyGo_Class amoled;
 #define BAR_X_OFFSET 40        // X offset of the bar
 #define CPU_BAR_Y_OFFSET (HEIGHT / 4) // Y offset of the CPU bar with increased vertical space
 #define GPU_BAR_Y_OFFSET (HEIGHT / 2 + HEIGHT / 4) // Y offset of the GPU bar
-#define MARKER_HEIGHT 6        // Height of the markers
+#define MARKER_HEIGHT 0        // Height of the markers
 #define TEXT_SIZE 3            // Text size for temperature display
 #define MARKER_TEXT_SIZE 2.5   // Text size for marker text
 #define TEXT_PADDING 15        // Padding between text and temperature values
