@@ -387,6 +387,7 @@ def load_preferences():
             "auto_start_serial": False,
             "start_minimized": False
         }
+        os.makedirs(os.path.dirname(preferences_path), exist_ok=True)  # Create directory if not exists
         with open(preferences_path, "w") as file:
             json.dump(preferences, file, indent=4)
     return preferences
@@ -425,4 +426,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
