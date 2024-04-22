@@ -8,6 +8,7 @@ Requirements:
 
 Current issues:
 - The CPU fan speed is not read in this initial release
+- GPU selection does not influence the queried GPU metrics
 
 Setup:
 1. Compile the contents of GUI_Python_Code folder by running PyInstaller in the directory with all files present, using the CC_HW_GUI.spec configuration file
