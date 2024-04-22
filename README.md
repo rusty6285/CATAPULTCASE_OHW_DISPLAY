@@ -17,7 +17,7 @@ Setup:
    
 ![screenshot](splash.jpg)
 
-5. Start openhardwaremonitor-v0.9.6
+5. Obtain and run OpenHardwareMonitor - this software was tested using v0.9.6
 6. Run the compiled CC_HW_GUI.exe and configure using the GUI
 
 ![screenshot](GUI.png)
