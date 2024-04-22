@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <LilyGo_AMOLED.h>
 #include <TFT_eSPI.h>
-#include <math.h>
+#include <ArduinoJson.h> // Include ArduinoJson library
 
 TFT_eSPI tft = TFT_eSPI();
 TFT_eSprite spr = TFT_eSprite(&tft);
@@ -25,13 +25,10 @@ LilyGo_Class amoled;
 #define FAN_BLADES 7           // Number of fan blades
 #define SEGMENT_PADDING 2      // Padding between segments of the bar
 
+int lastCpuTemp = 0; // Last received CPU temperature
+int lastGpuTemp = 0; // Last received GPU temperature
+int lastGpuFanRPM = 0; // Last received GPU fan RPM
 int cpuFanSpeed = 30; // Rotation speed of CPU fan blades (in degrees per frame)
-
-int cpuTemp = 0; // Initialize CPU temperature
-int gpuTemp = 0; // Initialize GPU temperature
-int prevCpuTemp = 0; // Previous valid CPU temperature
-int prevGpuTemp = 0; // Previous valid GPU temperature
-int gpuFanRPM = 0; // GPU Fan RPM
 
 bool serialActive = false; // Flag to indicate if serial connection is active or not
 
@@ -127,33 +124,36 @@ void drawTemperatureBar(int x, int y, int width, int height, int temperature, in
 }
 
 void loop() {
-    // Check for available serial data
-    if (Serial.available() > 0) {
-        // Read CPU and GPU temperatures from serial
-        cpuTemp = Serial.parseInt();
-        int newGpuTemp = Serial.parseInt();
-        gpuFanRPM = Serial.parseInt();
+    static String jsonBuffer = "";
+    
+    while (Serial.available() > 0) {
+        char incomingByte = Serial.read();
+        
+        // Accumulate bytes until the end of JSON data
+        if (incomingByte == '}') {
+            jsonBuffer += incomingByte;
+            
+            // Parse JSON data
+            DynamicJsonDocument doc(1024);
+            deserializeJson(doc, jsonBuffer);
+            
+            // Extract values based on keys
+            int newCpuTemp = doc["cpu_temp"];
+            int newGpuTemp = doc["gpu_temp"];
+            int newGpuFanRPM = doc["gpu_fan_rpm"];
 
-        // Clear the input buffer
-        while (Serial.available() > 0) {
-            Serial.read();
-        }
+            // Update last values
+            lastCpuTemp = newCpuTemp;
+            lastGpuTemp = newGpuTemp;
+            lastGpuFanRPM = newGpuFanRPM;
 
-        // Update previous valid temperatures
-        if (cpuTemp != 0) {
-            prevCpuTemp = cpuTemp;
-        }
-        if (newGpuTemp != 0) {
-            // Validate GPU temperature
-            if (newGpuTemp >= 30 && newGpuTemp <= 100) { // Adjust the range according to valid GPU temperatures
-                prevGpuTemp = newGpuTemp;
-            }
-        }
+            // Reset the JSON buffer
+            jsonBuffer = "";
 
-        // Set serial active flag to true
-        if (!serialActive) {
             serialActive = true;
-            spr.fillScreen(TFT_BLACK); // Clear the screen
+        } else {
+            // Append byte to the JSON buffer
+            jsonBuffer += incomingByte;
         }
     }
 
@@ -164,7 +164,6 @@ void loop() {
         spr.setTextColor(TFT_YELLOW);
         spr.setTextDatum(MC_DATUM); // Center text horizontally and vertically
         spr.drawString("CATAPULTCASE", WIDTH / 2, HEIGHT / 2 - 20);
-        spr.drawString("START OHM & PYTHON SCRIPT", WIDTH / 2, HEIGHT / 2 + 20);
         amoled.pushColors(0, 0, WIDTH, HEIGHT, (uint16_t *)spr.getPointer());
         delay(100); // Delay for screen refresh
         return; // Exit loop early
@@ -174,8 +173,8 @@ void loop() {
     spr.fillSprite(TFT_BLACK);
 
     // Draw CPU and GPU temperature bars with padding
-    drawTemperatureBar(BAR_X_OFFSET, CPU_BAR_Y_OFFSET - (BAR_HEIGHT / 2), BAR_WIDTH, BAR_HEIGHT, prevCpuTemp, SEGMENT_PADDING);
-    drawTemperatureBar(BAR_X_OFFSET, GPU_BAR_Y_OFFSET - (BAR_HEIGHT / 2), BAR_WIDTH, BAR_HEIGHT, prevGpuTemp, SEGMENT_PADDING);
+    drawTemperatureBar(BAR_X_OFFSET, CPU_BAR_Y_OFFSET - (BAR_HEIGHT / 2), BAR_WIDTH, BAR_HEIGHT, lastCpuTemp, SEGMENT_PADDING);
+    drawTemperatureBar(BAR_X_OFFSET, GPU_BAR_Y_OFFSET - (BAR_HEIGHT / 2), BAR_WIDTH, BAR_HEIGHT, lastGpuTemp, SEGMENT_PADDING);
 
     // Draw temperature levels above the graphs
     for (int i = 0; i <= 100; i += 25) {
@@ -196,13 +195,13 @@ void loop() {
     spr.setTextColor(TFT_WHITE);
     spr.setCursor(cpuTempX, cpuTempY);
     spr.print("CPU Temp: ");
-    spr.print(prevCpuTemp);
+    spr.print(lastCpuTemp);
     spr.print("C");
 
     // Draw GPU Temperature Text
     spr.setCursor(gpuTempX, gpuTempY);
     spr.print("GPU Temp: ");
-    spr.print(prevGpuTemp);
+    spr.print(lastGpuTemp);
     spr.print("C");
 
     // Draw CPU fan rectangle
@@ -227,7 +226,7 @@ void loop() {
     // Draw "GPU RPM" text beneath the GPU fan rectangle
     spr.setCursor(gpuFanRpmX - 60, gpuFanRpmY);
     spr.print("GPU RPM: ");
-    spr.print(gpuFanRPM);
+    spr.print(lastGpuFanRPM);
 
     // Push to display
     amoled.pushColors(0, 0, WIDTH, HEIGHT, (uint16_t *)spr.getPointer());
