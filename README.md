@@ -1,4 +1,4 @@
-# CATAPULTCASE_OHW_DISPLAY
+# CATAPULTCASE OpenHardwareMonitor Display App
 CC_HW_GUI_v0.09
 
 Requirements:
