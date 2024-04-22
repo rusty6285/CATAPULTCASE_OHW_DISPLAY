@@ -1,6 +1,5 @@
 # CATAPULTCASE_OHW_DISPLAY
-CATAPULTCASE_OHW_DISPLAY
-
+CC_HW_GUI_v0.09
 
 Requirements:
 - Lilygo T-Display S3 AMOLED (https://www.lilygo.cc/products/t-display-s3-amoled)
