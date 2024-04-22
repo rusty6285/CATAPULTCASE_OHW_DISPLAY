@@ -11,9 +11,7 @@ Current issues:
 - The CPU fan speed is not read in this initial release
 
 Setup:
-1. Compile the contents of GUI_Python_Code by running PyInstaller in the directory with all files present:
-      example compile script: py -m PyInstaller CC_HW_GUI.spec
-   
+1. Compile the contents of GUI_Python_Code by running PyInstaller in the directory with all files present, using the CC_HW_GUI.spec configuration file
 3. Compile the contents of Ardruino_Code_Folder and flash to the Lilygo display 
 4. Connect the Lilygo display and you should see the splash screen
    
