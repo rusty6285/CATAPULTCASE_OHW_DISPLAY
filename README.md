@@ -13,7 +13,7 @@ Current issues:
 Setup:
 1. Compile the contents of GUI_Python_Code by running PyInstaller in the directory with all files present:
 - py -m PyInstaller CC_HW_GUI.spec
-2. Compile and flash to the Lilygo display with CC_HW_Display.ino in the Ardruino_Code_Folder
+2. Compile and contents of Ardruino_Code_Folder and flash to the Lilygo display 
 4. Connect the Lilygo display and you should see the splash screen
    
 ![screenshot](splash.jpg)
