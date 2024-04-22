@@ -13,7 +13,7 @@ Current issues:
 Setup:
 1. Compile the contents of GUI_Python_Code folder by running PyInstaller in the directory with all files present, using the CC_HW_GUI.spec configuration file
 3. Compile the contents of Arduino_Code folder and flash to the Lilygo display 
-4. Connect the Lilygo display and you should see the splash screen
+4. Reconnect/reset the Lilygo display and you should see the splash screen
    
 ![screenshot](splash.jpg)
 
