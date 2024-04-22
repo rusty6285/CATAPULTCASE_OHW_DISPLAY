@@ -19,6 +19,10 @@ Setup:
 ![screenshot](splash.jpg)
 
 5. Start openhardwaremonitor-v0.9.6
-6. Run the compiled CC_HW_GUI.exe
+6. Run the compiled CC_HW_GUI.exe and configure using the GUI.
+
+![screenshot](GUI.jpg)
+
+Press the 'START" button and the metrics should start to feed the LilyGo display
 
 ![screenshot](running.jpg)
