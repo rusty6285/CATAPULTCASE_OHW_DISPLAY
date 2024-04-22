@@ -2,7 +2,7 @@
 
 block_cipher = None
 
-a = Analysis(['CC_HW_GUI_9.py'],
+a = Analysis(['CC_HW_GUI.py'],
              binaries=[],
              datas=[('CC_Logo.png', '.')],
              hiddenimports=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='CC_HW_GUI_9',
+          name='CC_HW_GUI',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -37,4 +37,4 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=True,
-               name='CC_HW_GUI_9')
+               name='CC_HW_GUI')
