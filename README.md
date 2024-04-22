@@ -1,5 +1,5 @@
 # CATAPULTCASE OpenHardwareMonitor Display App
-CC_HW_GUI_v0.09
+CC_HW_GUI_v0.10
 
 Requirements:
 - Lilygo T-Display S3 AMOLED (https://www.lilygo.cc/products/t-display-s3-amoled)
